@@ -82,12 +82,15 @@ export default async function handler(
       };
     }
 
+    const pastDate = new Date();
+    pastDate.setDate(pastDate.getDate() - 180);
+
     const response = await prisma.rssSubscription.create({
       data: {
         name,
         url,
         ownerId: user.id,
-        lastBuildDate: new Date(),
+        lastBuildDate: pastDate,
         collection: {
           connect: {
             id: linkCollection.id,

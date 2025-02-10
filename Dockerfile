@@ -51,4 +51,4 @@ HEALTHCHECK --interval=30s \
 
 EXPOSE 3000
 
-CMD yarn prisma migrate deploy && yarn start
+CMD ["/bin/sh", "-c", "yarn prisma migrate deploy && yarn start"]
