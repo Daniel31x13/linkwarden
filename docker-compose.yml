@@ -2,6 +2,7 @@ version: "3.5"
 services:
   postgres:
     image: postgres:16-alpine
+    user: ${UID:-1000}:${GID:-1000}
     env_file: .env
     restart: always
     volumes:
@@ -13,6 +14,7 @@ services:
     restart: always
     # build: . # uncomment this line to build from source
     image: ghcr.io/linkwarden/linkwarden:latest # comment this line to build from source
+    user: ${UID:-1000}:${GID:-1000}
     ports:
       - 3000:3000
     volumes:

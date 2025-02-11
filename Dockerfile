@@ -13,6 +13,7 @@ RUN set -eux && cargo install --locked monolith
 FROM node:18.18-bullseye-slim AS main-app
 
 ARG DEBIAN_FRONTEND=noninteractive
+ENV PLAYWRIGHT_BROWSERS_PATH=/data/.cache/ms-playwright
 
 RUN mkdir /data
 
@@ -41,7 +42,8 @@ RUN set -eux && \
 COPY . .
 
 RUN yarn prisma generate && \
-    yarn build
+    yarn build && \
+    chmod -R u+rwX,o+rwX,g+rwX /data
 
 HEALTHCHECK --interval=30s \
             --timeout=5s \
