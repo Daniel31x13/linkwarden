@@ -7,6 +7,7 @@ import {
 import { prisma } from "./db";
 import { generateObject } from "ai";
 import { openai } from "@ai-sdk/openai";
+import { azure } from '@ai-sdk/azure';
 import { z } from "zod";
 import { anthropic } from "@ai-sdk/anthropic";
 import { createOllama } from "ollama-ai-provider";
@@ -19,6 +20,8 @@ const ensureValidURL = (base: string, path: string) =>
 const getAIModel = () => {
   if (process.env.OPENAI_API_KEY && process.env.OPENAI_MODEL)
     return openai(process.env.OPENAI_MODEL);
+  if (process.env.AZURE_API_KEY && process.env.AZURE_RESOURCE_NAME && process.env.AZURE_MODEL)
+    return azure(process.env.AZURE_MODEL);
   if (process.env.ANTHROPIC_API_KEY && process.env.ANTHROPIC_MODEL)
     return anthropic(process.env.ANTHROPIC_MODEL);
   if (process.env.NEXT_PUBLIC_OLLAMA_ENDPOINT_URL && process.env.OLLAMA_MODEL) {

@@ -22,6 +22,7 @@
   "dependencies": {
     "@ai-sdk/anthropic": "^1.1.5",
     "@ai-sdk/openai": "^1.1.5",
+    "@ai-sdk/azure": "^1.1.5",
     "@atlaskit/tree": "^8.8.7",
     "@auth/prisma-adapter": "^1.0.1",
     "@aws-sdk/client-s3": "^3.379.1",
