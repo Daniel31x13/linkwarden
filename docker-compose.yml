@@ -1,21 +1,30 @@
 version: "3.5"
 services:
-  postgres:
+  postgres-linkwarden:
     image: postgres:16-alpine
     env_file: .env
     restart: always
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      start_period: 30s
     volumes:
       - ./pgdata:/var/lib/postgresql/data
   linkwarden:
     env_file: .env
     environment:
-      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/postgres
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres-linkwarden:5432/postgres
     restart: always
     # build: . # uncomment this line to build from source
     image: ghcr.io/linkwarden/linkwarden:latest # comment this line to build from source
     ports:
       - 3000:3000
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
     volumes:
       - ./data:/data/data
     depends_on:
-      - postgres
+      - postgres-linkwarden
