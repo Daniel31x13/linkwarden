@@ -298,7 +298,8 @@ const renderItem = (
           currentPath === `/collections/${collection.id}`
             ? "bg-primary/20 is-active"
             : "hover:bg-neutral/20"
-        } duration-100 flex gap-1 items-center pr-2 pl-1 rounded-md`}
+        } collection-link duration-100 flex gap-1 items-center pr-2 pl-1 rounded-md`}
+        data-collection-id={collection.id}
       >
         {Dropdown(item as ExtendedTreeItem, onExpand, onCollapse)}
 
